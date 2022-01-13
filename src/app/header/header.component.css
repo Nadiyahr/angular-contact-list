@@ -1,0 +1,11 @@
+.header {
+  padding: 3rem;
+  background-color: blue;
+  min-width: 600px;
+  text-align: center;
+}
+
+.title {
+  color: aliceblue;
+  text-transform: uppercase;
+}

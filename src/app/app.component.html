@@ -1,0 +1,9 @@
+<div class="container">
+  <app-header></app-header>
+  <ul *ngIf="toggle">
+    <app-list-of-contacts
+      *ngFor="let contact of contacts"
+      [contact]="contact"
+    ></app-list-of-contacts>
+  </ul>
+</div>
