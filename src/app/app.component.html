@@ -1,9 +1,42 @@
 <div class="container">
   <app-header></app-header>
-  <ul *ngIf="toggle">
-    <app-list-of-contacts
-      *ngFor="let contact of contacts"
-      [contact]="contact"
-    ></app-list-of-contacts>
-  </ul>
+  <button (click)="toggleList()">
+    <span class="icon">
+      <i class="far fa-eye" *ngIf="!toggle"></i>
+      <i class="far fa-eye-slash" *ngIf="toggle"></i>
+    </span>
+  </button>
+
+  <table class="table is-narrow is-hoverable is-fullwidth" *ngIf="toggle">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>email</th>
+        <th>phone</th>
+        <th>open</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts">
+        <td>{{ contact.id }}</td>
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.phone }}</td>
+        <td>
+          <button (click)="toggleList()">
+            <span class="icon">
+              <i class="far fa-eye" *ngIf="toggle"></i>
+              <i class="far fa-eye-slash" *ngIf="!toggle"></i>
+            </span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+  <app-contact-card [selectedContact]="selectedContact">
+
+  </app-contact-card>
 </div>
