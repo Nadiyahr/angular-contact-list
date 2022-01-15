@@ -14,24 +14,15 @@ export class AppComponent implements OnInit {
   selectedContact?: Contact;
   nameControl: FormControl = new FormControl('');
   newContact = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    phone: new FormControl('')
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    phone: new FormControl('', [Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')])
   });
 
   constructor(private _contactService: ContactsService ) {}
 
   ngOnInit(): void {
     this.contacts = this._contactService.getAll();
-    // this.selectedContact = 
-    // this.newContact = new FormControl('John', [Validators.required, Validators.minLength(5)]);
-    // this.newContact.valueChanges.subscribe(val => console.log(val));
-    // this.newContact.statusChanges.subscribe(status => console.log(status));
-    // this.newContact = new FormGroup({
-    //   name: new FormControl(),
-    //   email: new FormControl(),
-    //   phone: new FormControl(),
-    // })
   }
 
   toggleList() {
@@ -49,12 +40,13 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.newContact.value)
+    console.warn(this.newContact.valid)
 
     const value = this.newContact.value;
     const newId = this.contacts ? this.contacts.length + 1 : 0;
     const cont = {id: newId, ...value};
     this._contactService.add(cont);
     this.contacts = this._contactService.getAll();
+    this.newContact.reset();
   }
 }

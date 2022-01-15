@@ -1,66 +1,109 @@
-<div class="container">
-  <app-header></app-header>
-
-  <form [formGroup]="newContact" (ngSubmit)="onSubmit()">
-    <label for="fullName">Full Name: </label>
-    <input id="fullName" type="text" formControlName="name">
-    <label for="email">Email: </label>
-    <input id="email" type="email" formControlName="email">
-    <label for="phone">Phone: </label>
-    <input id="phone" type="tel" formControlName="phone">
-
-    <button type="submit" [disabled]="!newContact.valid">Submit</button>
-  </form>
-
-  <div  *ngIf="toggle; else elseNotDone">
-    <table class="table is-narrow is-hoverable is-fullwidth">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>name</th>
-          <th>email</th>
-          <th>phone</th>
-          <th>open</th>
-          <th>cancel</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let contact of contacts">
-          <td>{{ contact.id }}</td>
-          <td>{{ contact.name }}</td>
-          <td>{{ contact.email }}</td>
-          <td>{{ contact.phone }}</td>
-          <td>
-            <button (click)="selectContact(contact.id)">
-              <span class="icon">
-                <i class="fas fa-eye"  *ngIf="toggle"></i>
-                <i class="far fa-eye-slash" *ngIf="!toggle"></i>
+<div class="columns">
+  <div class="column">
+    <p class="bd-notification is-info">
+      <app-header></app-header>
+    </p>
+    <div class="columns">
+      <div class="column is-3">
+        <div class="bd-notification is-info">
+          <form class="field" [formGroup]="newContact" (ngSubmit)="onSubmit()">
+            <label class="label" for="fullName">Full Name: </label>
+              <input
+                placeholder="Full Name"
+                class="input is-info"
+                id="fullName"
+                type="text"
+                formControlName="name"
+              >
+            <label class="label" for="email">Email: </label>
+            <p class="control has-icons-left has-icons-right">
+              <input
+                placeholder="Email"
+                class="input is-info"
+                id="email"
+                type="email"
+                formControlName="email"
+              >
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
               </span>
-            </button>
-          </td>
-          <td>
-            <button (click)="removeContact(contact.id)">
-              <span class="icon">
-                <i class="fas fa-trash"></i>
+            </p>
+            <label class="label" for="phone">Phone: </label>
+            <p class="control has-icons-left has-icons-right">
+              <input
+                placeholder="Phone"
+                class="input is-info"
+                id="phone"
+                type="tel"
+                formControlName="phone"
+              >
+              <span class="icon is-small is-left">
+                <i class="fas fa-phone-alt"></i>
               </span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <ng-template #elseNotDone>
-    <div>
-      <h1>{{ selectedContact?.name }}</h1>
-      <p>{{ selectedContact?.email }}</p>
-      <p>{{ selectedContact?.phone }}</p>
-      <button (click)="toggleList()">
-        <span class="icon">
-          <i class="far fa-eye" *ngIf="!toggle"></i>
-          <i class="far fa-eye-slash" *ngIf="toggle"></i>
-        </span>
-      </button>
+            </p>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <button class="button is-primary" type="submit" [disabled]="!newContact.valid">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="column is-8">
+        <div class="bd-notification is-info"></div>
+          <div  *ngIf="toggle; else elseNotDone">
+            <table class="table is-narrow is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>name</th>
+                  <th>email</th>
+                  <th>phone</th>
+                  <th>open</th>
+                  <th>cancel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contact of contacts">
+                  <td>{{ contact.id }}</td>
+                  <td>{{ contact.name }}</td>
+                  <td>{{ contact.email }}</td>
+                  <td>{{ contact.phone }}</td>
+                  <td>
+                    <button (click)="selectContact(contact.id)">
+                      <span class="icon">
+                        <i class="fas fa-eye"  *ngIf="toggle"></i>
+                        <i class="far fa-eye-slash" *ngIf="!toggle"></i>
+                      </span>
+                    </button>
+                  </td>
+                  <td>
+                    <button (click)="removeContact(contact.id)">
+                      <span class="icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #elseNotDone>
+            <div>
+              <h1>{{ selectedContact?.name }}</h1>
+              <p>{{ selectedContact?.email }}</p>
+              <p>{{ selectedContact?.phone }}</p>
+              <button (click)="toggleList()">
+                <span class="icon">
+                  <i class="far fa-eye" *ngIf="!toggle"></i>
+                  <i class="far fa-eye-slash" *ngIf="toggle"></i>
+                </span>
+              </button>
+            </div>
+          </ng-template>
+        </div>
+      </div>
     </div>
-  </ng-template>
-</div>
+  </div>
