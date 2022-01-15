@@ -69,7 +69,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "list-of-contacts:build:production"
+              "browserTarget": "contact-list:build:production"
             },
             "development": {
               "browserTarget": "contact-list:build:development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "list-of-contacts:build"
+            "browserTarget": "contact-list:build"
           }
         },
         "test": {
@@ -106,5 +106,5 @@
       }
     }
   },
-  "defaultProject": "list-of-contacts"
+  "defaultProject": "contact-list"
 }
