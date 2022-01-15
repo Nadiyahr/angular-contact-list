@@ -1,11 +1,16 @@
 <div class="container">
   <app-header></app-header>
 
-  <fieldset [formGroup]="newContact">
-    <input formControlName="name">
-    <input formControlName="email">
-    <input formControlName="phone">
-  </fieldset>
+  <form [formGroup]="newContact" (ngSubmit)="onSubmit()">
+    <label for="fullName">Full Name: </label>
+    <input id="fullName" type="text" formControlName="name">
+    <label for="email">Email: </label>
+    <input id="email" type="email" formControlName="email">
+    <label for="phone">Phone: </label>
+    <input id="phone" type="tel" formControlName="phone">
+
+    <button type="submit" [disabled]="!newContact.valid">Submit</button>
+  </form>
 
   <div  *ngIf="toggle; else elseNotDone">
     <table class="table is-narrow is-hoverable is-fullwidth">

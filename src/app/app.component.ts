@@ -12,8 +12,12 @@ export class AppComponent implements OnInit {
   toggle = true;
   contacts?: Contact[];
   selectedContact?: Contact;
-  nameControl: FormControl = new FormControl;
-  newContact!: FormGroup;
+  nameControl: FormControl = new FormControl('');
+  newContact = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl('')
+  });
 
   constructor(private _contactService: ContactsService ) {}
 
@@ -23,11 +27,11 @@ export class AppComponent implements OnInit {
     // this.newContact = new FormControl('John', [Validators.required, Validators.minLength(5)]);
     // this.newContact.valueChanges.subscribe(val => console.log(val));
     // this.newContact.statusChanges.subscribe(status => console.log(status));
-    this.newContact = new FormGroup({
-      name: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-    })
+    // this.newContact = new FormGroup({
+    //   name: new FormControl(),
+    //   email: new FormControl(),
+    //   phone: new FormControl(),
+    // })
   }
 
   toggleList() {
@@ -44,11 +48,13 @@ export class AppComponent implements OnInit {
     this.toggleList();
   }
 
-  // addName(name: string) {
-  //   if (!name) {
-  //     return;
-  //   }
+  onSubmit() {
+    console.warn(this.newContact.value)
 
-  //   this.newContact.name = name;
-  // }
+    const value = this.newContact.value;
+    const newId = this.contacts ? this.contacts.length + 1 : 0;
+    const cont = {id: newId, ...value};
+    this._contactService.add(cont);
+    this.contacts = this._contactService.getAll();
+  }
 }
