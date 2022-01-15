@@ -29,4 +29,17 @@ export class ContactsService {
   getAll() {
     return this.contacts;
   }
+
+  remove(id: number) {
+    this.contacts = this.contacts.filter(contact => contact.id !== id);
+    return this.contacts;
+  }
+
+  add(newContact: Contact) {
+    this.contacts.push(newContact)
+  }
+
+  select(id: number) {
+    return this.contacts.find(contact => contact.id === id)
+  }
 }
