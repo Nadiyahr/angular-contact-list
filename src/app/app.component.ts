@@ -1,6 +1,9 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Contact, ContactsService } from './contacts.service';
+import { filter, map, Observable, startWith } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
 
 @Component({
   selector: 'app-root',
@@ -9,20 +12,24 @@ import { Contact, ContactsService } from './contacts.service';
 })
 export class AppComponent implements OnInit {
   title = 'contact-list';
+  value?: any;
   toggle = true;
   contacts?: Contact[];
   selectedContact?: Contact;
-  nameControl: FormControl = new FormControl('');
+  searchContact = new FormControl();
+  filterOptions?: Observable<string>
   newContact = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.email, Validators.required]),
     phone: new FormControl('', [Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')])
-  });
+  }); 
 
   constructor(private _contactService: ContactsService ) {}
 
-  ngOnInit(): void {
-    this.contacts = this._contactService.getAll();
+  ngOnInit() {
+    this.contacts = this._contactService.getAll() || this._contactService.filter(this.value);
+    console.log(this.filterOptions);
+
   }
 
   toggleList() {
@@ -41,12 +48,19 @@ export class AppComponent implements OnInit {
 
   onSubmit() {
     console.warn(this.newContact.valid)
-
     const value = this.newContact.value;
     const newId = this.contacts ? this.contacts.length + 1 : 0;
     const cont = {id: newId, ...value};
     this._contactService.add(cont);
     this.contacts = this._contactService.getAll();
     this.newContact.reset();
+  }
+
+  onSearch(e: any) {
+    this.value = e.target.value.toLowerCase();
+    console.log(this.value);
+    console.log(this.filterOptions);
+    
+    this.contacts = this._contactService.filter(this.value)
   }
 }

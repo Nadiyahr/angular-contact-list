@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Contact } from '../contacts.service';
+import { Contact, ContactsService } from '../contacts.service';
 
 @Component({
   selector: 'app-list-of-contacts',
@@ -8,6 +8,7 @@ import { Contact } from '../contacts.service';
 })
 export class ListOfContactsComponent implements OnInit {
   @Input() contact!: Contact;
+  
 
   ngOnInit(): void {
   }

@@ -30,7 +30,7 @@ export class ContactsService {
 
   remove(id: number) {
     this.localContacts = this.localContacts?.filter(contact => contact.id !== id);
-    return this.localContacts;
+    localStorage.setItem('contacts', JSON.stringify(this.localContacts));
   }
 
   add(newContact: Contact) {
@@ -39,6 +39,12 @@ export class ContactsService {
   }
 
   select(id: number) {
-    return this.contacts.find(contact => contact.id === id)
+    return this.localContacts?.find(contact => contact.id === id)
+  }
+
+  filter(value: string) {
+    this.localContacts = this.localContacts?.filter(contact => contact.name.toLowerCase().includes(value)
+    || contact.email.toLowerCase().includes(value));
+    return this.localContacts;
   }
 }

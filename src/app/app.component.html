@@ -1,15 +1,15 @@
 <div class="columns">
-  <div class="column">
+  <div class="column m-5">
     <p class="bd-notification is-info">
       <app-header></app-header>
     </p>
     <div class="columns">
-      <div class="column is-3">
+      <div class="column ml-4">
         <div class="bd-notification is-info">
           <form class="field" [formGroup]="newContact" (ngSubmit)="onSubmit()">
             <label class="label" for="fullName">Full Name: </label>
               <input
-                placeholder="Full Name"
+                placeholder="e.g Mario Rossi"
                 class="input is-info"
                 id="fullName"
                 type="text"
@@ -18,7 +18,7 @@
             <label class="label" for="email">Email: </label>
             <p class="control has-icons-left has-icons-right">
               <input
-                placeholder="Email"
+                placeholder="e.g mariorossi@example.com"
                 class="input is-info"
                 id="email"
                 type="email"
@@ -31,7 +31,7 @@
             <label class="label" for="phone">Phone: </label>
             <p class="control has-icons-left has-icons-right">
               <input
-                placeholder="Phone"
+                placeholder="e.g. (090)999-9999"
                 class="input is-info"
                 id="phone"
                 type="tel"
@@ -44,16 +44,39 @@
             <div class="field-body">
               <div class="field">
                 <div class="control">
-                  <button class="button is-primary" type="submit" [disabled]="!newContact.valid">Submit</button>
+                  <button
+                    class="button is-primary"
+                    type="submit"
+                    [disabled]="!newContact.valid"
+                  >
+                    Add New Contact
+                  </button>
                 </div>
               </div>
             </div>
           </form>
         </div>
       </div>
-      <div class="column is-8">
-        <div class="bd-notification is-info"></div>
-          <div  *ngIf="toggle; else elseNotDone">
+      <div class="column is-8 mr-5">
+        <div>
+          <!-- <form class="field" [formControl]="searchContact"> -->
+            <p class="control has-icons-left has-icons-right m-2">
+              <input
+                (keyup)="onSearch($event)"
+                placeholder="by name"
+                class="input is-info"
+                type="text"
+                formControlName="searchByName"
+                [formControl]="searchContact"
+              >
+              <span class="icon is-small is-left">
+                <i class="fas fa-search"></i>
+              </span>
+            </p>
+        <!-- </form> -->
+         </div>
+        <div class="bd-notification is-info">
+          <div  *ngIf="toggle; else elseCard">
             <table class="table is-narrow is-hoverable is-fullwidth">
               <thead>
                 <tr>
@@ -66,21 +89,20 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let contact of contacts">
-                  <td>{{ contact.id }}</td>
+                <tr *ngFor="let contact of contacts; let inx = index">
+                  <td>{{ inx + 1 }}</td>
                   <td>{{ contact.name }}</td>
                   <td>{{ contact.email }}</td>
                   <td>{{ contact.phone }}</td>
                   <td>
-                    <button (click)="selectContact(contact.id)">
+                    <button class="button is-info btn" (click)="selectContact(contact.id)">
                       <span class="icon">
                         <i class="fas fa-eye"  *ngIf="toggle"></i>
-                        <i class="far fa-eye-slash" *ngIf="!toggle"></i>
                       </span>
                     </button>
                   </td>
                   <td>
-                    <button (click)="removeContact(contact.id)">
+                    <button class="button is-danger btn" (click)="removeContact(contact.id)">
                       <span class="icon">
                         <i class="fas fa-trash"></i>
                       </span>
@@ -90,17 +112,18 @@
               </tbody>
             </table>
           </div>
-          <ng-template #elseNotDone>
-            <div>
-              <h1>{{ selectedContact?.name }}</h1>
-              <p>{{ selectedContact?.email }}</p>
-              <p>{{ selectedContact?.phone }}</p>
-              <button (click)="toggleList()">
-                <span class="icon">
-                  <i class="far fa-eye" *ngIf="!toggle"></i>
-                  <i class="far fa-eye-slash" *ngIf="toggle"></i>
-                </span>
-              </button>
+          <ng-template #elseCard>
+            <div class="notification is-info is-light">
+                <button class="button is-info  is-pulled-right btn" (click)="toggleList()">
+                  <span class="icon">
+                    <i class="far fa-eye-slash" *ngIf="!toggle"></i>
+                  </span>
+                </button>
+              <div class="block">
+                <h1 class="block">{{ selectedContact?.name }}</h1>
+                <p class="block">{{ selectedContact?.email }}</p>
+                <p class="block">{{ selectedContact?.phone }}</p>
+              </div>
             </div>
           </ng-template>
         </div>

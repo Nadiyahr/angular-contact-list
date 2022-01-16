@@ -1,1 +1,50 @@
-
+<!-- <div  *ngIf="toggle; else elseCard">
+  <table class="table is-narrow is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>email</th>
+        <th>phone</th>
+        <th>open</th>
+        <th>cancel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts">
+        <td>{{ contact.id }}</td>
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.phone }}</td>
+        <td>
+          <button class="button is-info btn" (click)="selectContact(contact.id)">
+            <span class="icon">
+              <i class="fas fa-eye"  *ngIf="toggle"></i>
+            </span>
+          </button>
+        </td>
+        <td>
+          <button class="button is-danger btn" (click)="removeContact(contact.id)">
+            <span class="icon">
+              <i class="fas fa-trash"></i>
+            </span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #elseCard>
+  <div class="notification is-info is-light">
+      <button class="button is-info  is-pulled-right btn" (click)="toggleList()">
+        <span class="icon">
+          <i class="far fa-eye-slash" *ngIf="!toggle"></i>
+        </span>
+      </button>
+    <div class="block">
+      <h1 class="block">{{ selectedContact?.name }}</h1>
+      <p class="block">{{ selectedContact?.email }}</p>
+      <p class="block">{{ selectedContact?.phone }}</p>
+    </div>
+  </div>
+</ng-template> -->

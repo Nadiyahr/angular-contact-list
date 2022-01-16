@@ -6,6 +6,8 @@
   margin-top: 10px;
 }
 
-.column {
-  margin: 20px;
+.btn {
+  cursor: pointer;
+  min-width: 60px;
+  
 }
