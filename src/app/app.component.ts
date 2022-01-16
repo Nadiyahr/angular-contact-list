@@ -58,9 +58,11 @@ export class AppComponent implements OnInit {
 
   onSearch(e: any) {
     this.value = e.target.value.toLowerCase();
-    console.log(this.value);
+    console.log(e);
     console.log(this.filterOptions);
-    
-    this.contacts = this._contactService.filter(this.value)
+    this.contacts = this._contactService.filter(this.value);
+    // if (this.value === '') {
+    //   this.contacts = this._contactService.getAll();
+    // }
   }
 }

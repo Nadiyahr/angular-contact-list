@@ -43,8 +43,7 @@ export class ContactsService {
   }
 
   filter(value: string) {
-    this.localContacts = this.localContacts?.filter(contact => contact.name.toLowerCase().includes(value)
-    || contact.email.toLowerCase().includes(value));
-    return this.localContacts;
+    const filtredContacts = this.localContacts?.filter(contact => contact.name.toLowerCase().includes(value));
+    return filtredContacts;
   }
 }
