@@ -1,0 +1,12 @@
+<div class="notification is-info is-light">
+  <button class="button is-info  is-pulled-right btn" (click)="toggleList()">
+    <span class="icon">
+      <i class="far fa-eye-slash" *ngIf="!toggle"></i>
+    </span>
+  </button>
+<div class="block">
+  <h1 class="block">{{ selectedContact?.name }}</h1>
+  <p class="block">{{ selectedContact?.email }}</p>
+  <p class="block">{{ selectedContact?.phone }}</p>
+</div>
+</div>

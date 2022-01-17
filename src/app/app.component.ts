@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Contact, ContactsService } from './contacts.service';
-import { filter, map, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,8 +14,8 @@ export class AppComponent implements OnInit {
   title = 'contact-list';
   value?: any;
   toggle = true;
-  contacts?: Contact[];
-  selectedContact?: Contact;
+  contacts: Contact[] = [];
+  selectedContact: Contact = this.contacts[0];
   searchContact = new FormControl();
   filterOptions?: Observable<string>
   newContact = new FormGroup({
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   }
 
   selectContact(id: number) {
-    this.selectedContact = this._contactService.select(id);
+    this.selectedContact = this._contactService.select(id) || this.contacts[0];
     this.toggleList();
   }
 
@@ -61,8 +61,5 @@ export class AppComponent implements OnInit {
     console.log(e);
     console.log(this.filterOptions);
     this.contacts = this._contactService.filter(this.value);
-    // if (this.value === '') {
-    //   this.contacts = this._contactService.getAll();
-    // }
   }
 }

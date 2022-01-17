@@ -1,5 +1,4 @@
-<!-- <div  *ngIf="toggle; else elseCard">
-  <table class="table is-narrow is-hoverable is-fullwidth">
+ <table class="table is-narrow is-hoverable is-fullwidth">
     <thead>
       <tr>
         <th>#</th>
@@ -11,8 +10,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let contact of contacts">
-        <td>{{ contact.id }}</td>
+      <tr *ngFor="let contact of contacts; let inx = index">
+        <td>{{ inx + 1 }}</td>
         <td>{{ contact.name }}</td>
         <td>{{ contact.email }}</td>
         <td>{{ contact.phone }}</td>
@@ -32,19 +31,4 @@
         </td>
       </tr>
     </tbody>
-  </table>
-</div>
-<ng-template #elseCard>
-  <div class="notification is-info is-light">
-      <button class="button is-info  is-pulled-right btn" (click)="toggleList()">
-        <span class="icon">
-          <i class="far fa-eye-slash" *ngIf="!toggle"></i>
-        </span>
-      </button>
-    <div class="block">
-      <h1 class="block">{{ selectedContact?.name }}</h1>
-      <p class="block">{{ selectedContact?.email }}</p>
-      <p class="block">{{ selectedContact?.phone }}</p>
-    </div>
-  </div>
-</ng-template> -->
+</table>

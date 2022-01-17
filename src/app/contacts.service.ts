@@ -24,8 +24,8 @@ export class ContactsService {
 
   constructor() { }
 
-  getAll() {
-    return this.localContacts;
+  getAll(): Contact[] {
+    return this.localContacts || [];
   }
 
   remove(id: number) {
@@ -42,8 +42,8 @@ export class ContactsService {
     return this.localContacts?.find(contact => contact.id === id)
   }
 
-  filter(value: string) {
+  filter(value: string): Contact[] {
     const filtredContacts = this.localContacts?.filter(contact => contact.name.toLowerCase().includes(value));
-    return filtredContacts;
+    return filtredContacts || [];
   }
 }
